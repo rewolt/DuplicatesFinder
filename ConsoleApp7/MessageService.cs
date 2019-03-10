@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 
-namespace ConsoleApp7
+namespace DuplicatesFinder
 {
     class MessageService : IMessageService
     {

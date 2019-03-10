@@ -7,14 +7,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace ConsoleApp7
+namespace DuplicatesFinder
 {
-    class DuplicateFinder
+    class FileGrouper
     {
         private readonly FileInfo[] _fileInfos;
         private readonly IMessageService _messager;
 
-        public DuplicateFinder(FileInfo[] fileInfos, IMessageService messageService)
+        public FileGrouper(FileInfo[] fileInfos, IMessageService messageService)
         {
             _fileInfos = fileInfos;
             _messager = messageService;
@@ -23,7 +23,7 @@ namespace ConsoleApp7
         public Dictionary<byte[], List<string>> GetDuplicates()
         {
             var fileHashes = new ConcurrentDictionary<string, byte[]>();
-
+            
             foreach (var file in _fileInfos)
             {
                 try
@@ -38,22 +38,10 @@ namespace ConsoleApp7
                 }
             }
 
-            //Parallel.ForEach(_fileInfos, (file) => {
-            //    try
-            //    {
-            //        var fileMd5 = CreateMD5(file);
-            //        fileHashes.TryAdd(file.FullName, fileMd5);
-            //        _messager.LogInfo($"{ByteArrayToString(fileMd5),-35}{file.Name}");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        _messager.LogError(ex, $"Problem when creating MD5 from file {file.FullName}");
-            //    }
-            //});
-
-                var grouped = fileHashes.GroupBy(x => x.Value, new BitArrayComparer())
+            var grouped = fileHashes.GroupBy(x => x.Value, new BitArrayComparer())
                 .ToDictionary(x => x.Key, y => y.Select(z => z.Key)
                 .ToList());
+
             return grouped;
         }
 

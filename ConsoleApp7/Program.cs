@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleApp7
+namespace DuplicatesFinder
 {
     class Program
     {
@@ -11,7 +11,7 @@ namespace ConsoleApp7
             var fileSearcher = new FileSearcher(args);
             var files = fileSearcher.GetFiles();
 
-            var duplicateFinder = new DuplicateFinder(files, messanger);
+            var duplicateFinder = new FileGrouper(files, messanger);
             var duplicates = duplicateFinder.GetDuplicates();
 
             var resultSaver = new ResultSaver();

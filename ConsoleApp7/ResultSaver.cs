@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace ConsoleApp7
+namespace DuplicatesFinder
 {
     class ResultSaver
     {
